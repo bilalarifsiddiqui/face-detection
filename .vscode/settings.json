@@ -5,7 +5,6 @@
     "javascript.updateImportsOnFileMove.enabled": "always",
     "explorer.confirmDelete": false,
     "debug.toolBarLocation": "docked",
-    "debug.node.autoAttach": "on",
     "editor.wordWrap": "on",
     "[javascript]": {
         "editor.formatOnSave": true,
