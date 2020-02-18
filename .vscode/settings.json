@@ -1,7 +1,7 @@
 {
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 0,
     "javascript.updateImportsOnFileMove.enabled": "always",
     "explorer.confirmDelete": false,
     "debug.toolBarLocation": "docked",

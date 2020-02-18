@@ -33,7 +33,7 @@ class App extends React.Component {
     this.state = {
       input: '',
       imageUrl: '',
-      Box: {}
+      box: {}
     }
   }
 
@@ -44,14 +44,14 @@ class App extends React.Component {
     const width = image.width;
     return {
       left_col: Clarifai.left_col * width,
-      top_row: Clarifai.topRow * height,
-      right_col: width - (Clarifai.rightCol * width),
-      bottom_row: height - (Clarifai.bottomRow * height)
+      top_row: Clarifai.top_row * height,
+      right_col: width - (Clarifai.right_col * width),
+      bottom_row: height - (Clarifai.bottom_row * height)
     }
   }
 
   faceBoxDetection = (box) => {
-    this.setState({ box });
+    this.setState({ box: box });
   }
 
   onInputChange = (event) => {
