@@ -10,12 +10,13 @@ class Signin extends React.Component {
 
         }
     }
-    
+
     onEmailChange = (e) => {
         this.setState({ emailChange: e.target.value })
     }
 
     onPasswordChange = (e) => {
+        console.log(e.target.value);
         this.setState({ passwordChange: e.target.value })
     }
 
@@ -31,7 +32,7 @@ class Signin extends React.Component {
         })
             .then(res => res.json())
             .then(user => {
-                if(user.id) {
+                if (user.id) {
                     this.props.loadUser(user)
                     this.props.routeChanged('home');
                 }

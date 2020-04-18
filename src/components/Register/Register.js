@@ -6,7 +6,8 @@ class Register extends React.Component {
         super(props);
         this.state = {
             nameChanged: '',
-            emailChanged: ''
+            emailChanged: '',
+            passwordChanged : ''
         }
     }
 
@@ -16,22 +17,26 @@ class Register extends React.Component {
     onEmailChange = (e) => {
         this.setState({ emailChanged: e.target.value })
     }
-
+    onPasswordChange = (e) => {
+        this.setState({ passwordChanged: e.target.value})
+    }
 
     onRegisterClick = () => {
-        const { nameChanged, emailChanged } = this.state;
+        const { nameChanged, emailChanged, passwordChanged } = this.state;
         fetch('http://localhost:3000/register', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 name: nameChanged,
                 email: emailChanged,
+                password: passwordChanged
             })
 
         })
             .then(res => res.json())
             .then(user => {
-                if (user)
+                if (user.id)
+                console.log("user id in register : ",user.id);
                     this.props.loadUser(user);
                 this.props.routeChanged('home')
             })
@@ -63,7 +68,7 @@ class Register extends React.Component {
                             <div className="mv3">
                                 <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
                                 <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password" id="password"
-                                />
+                                    onChange={this.onPasswordChange}/>
                             </div>
                         </fieldset>
 

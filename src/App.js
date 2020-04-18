@@ -12,7 +12,7 @@ import Particles from '../node_modules/react-particles-js';
 
 
 const app = new Clarifai.App({
-  apiKey: '0299a2914d76475eb741dd115bd85809'
+  apiKey: '856550f0fafb4d5c9b8af9f1ce61348a'
 })
 
 const particlesOption = {
@@ -30,39 +30,32 @@ const particlesOption = {
 }
 
 
+const initialState = {
+  input: '',
+  imageUrl: '',
+  box: {},
+  route: 'signin',
+  isSignedIn: false,
+  user: {
+    id: '',
+    name: '',
+    email: '',
+    JoinDate: '',
+    Rank: 0,
+  }
 
+}
 
 
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {
-      input: '',
-      imageUrl: '',
-      box: {},
-      route: 'signin',
-      isSignedIn: false,
-      user: {
-        id: '',
-        name: '',
-        email: '',
-        JoinDate: '',
-        Rank: 0,
-      }
-    }
+    this.state = initialState;
   }
 
 
-  loadUser = (data) => {
-    this.setState({
-      user: {
-        id: data.id,
-        name: data.name,
-        email: data.email,
-        JoinDate: data.JoinDate,
-        Rank: data.Rank
-      }
-    })
+  loadUser = (user) => {
+    this.setState({user : user})
 
   }
 
@@ -90,10 +83,16 @@ class App extends React.Component {
 
   OnButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input })
-    console.log(Clarifai.FACE_DETECT_MODEL);
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+     fetch('http://localhost:3000/imageurl', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              input: this.state.input
+            })
+          })
+          .then(response => response.json())
       .then(response => {
-        console.log(response);
+        console.log(response); 
         if (response) {
 
           fetch('http://localhost:3000/image', {
@@ -118,7 +117,7 @@ class App extends React.Component {
 
   routeChanged = (route) => {
     if (route === 'signout') {
-      this.setState({ isSignedIn: false })
+      this.setState(initialState)
     } else if (route === 'home') {
       this.setState({ isSignedIn: true })
     }
@@ -126,7 +125,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log("this.state.user", this.state.user);
     return (
       <div className="App">
       
